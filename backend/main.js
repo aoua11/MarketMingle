@@ -26,12 +26,14 @@ app.use('/public', express.static('./public'));
 const productsroutes = require('./routes/products.route');
 const userroutes  = require('./routes/user.routes');
 const authroutes =require('./routes/auth.routes');
+const ordersroutes = require('./routes/orders')
 
 
 /*-------- use routers  -------*/
 app.use(productsroutes);
-app.use(userroutes)
+app.use(userroutes);
 app.use(authroutes);
+app.use(ordersroutes);
 
 /*-------- error middlewears -------*/
 app.use(error);

@@ -2,10 +2,16 @@
 
 import { addItem, addQuantity, clearItems, minusQuantity } from "@/lib/cartSlice";
 import axios from "axios";
+import * as React from 'react';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import { IoMdCreate } from "react-icons/io";
+import Order from "../Order";
 
 export default function Cart() {
     const items = useSelector((state) => state.cart.items);
@@ -19,6 +25,21 @@ export default function Cart() {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        borderRadius : "30px",
+        p: 4,
+        
+    };
 
     // const makeOrder = async (e) => {
     //     e.preventDefault();
@@ -40,6 +61,29 @@ export default function Cart() {
 
     return (
         <>
+            <div>
+                <div className="bg-[#EC4B9A]  rounded-full fixed right-5 bottom-5 z-50 opacity-85 hover:cursor-pointer hover:opacity-100">
+                    <IoMdCreate onClick={handleOpen} className="size-14 text-center text-white p-4" />
+                </div>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                <Order/>
+                            </Typography>
+                        </Box>
+                    </Modal>
+                </div>
+            </div>
+
             <div className="flex justify-evenly items-center gap-20 min-h-[60vh]">
                 <div className="flex flex-col gap-4 justify-center items-center">
                     <h1 className="text-4xl font-bold">My Cart</h1>
