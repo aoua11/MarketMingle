@@ -7,7 +7,7 @@ const objectid = require('../middlewears/objectid.middlewear');
 const router = exprees.Router();
 
 
-router.get("/orders",authmiddlewear, errorhandler(orderscontroller.index));
+router.get("/orders",errorhandler(orderscontroller.index));
 router.post("/orders", errorhandler(orderscontroller.store));
 router.get("/orders/:id", authmiddlewear, objectid, errorhandler(orderscontroller.show));
 router.put("/orders/:id", authmiddlewear, objectid, errorhandler(orderscontroller.update));
